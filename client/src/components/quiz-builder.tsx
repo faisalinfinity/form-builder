@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import  QuestionEditor from "./question-editor";
+import QuestionEditor from "./question-editor";
 import { SortableQuestion } from "./sortable-question";
 import type { Quiz, Question } from "@/types/quiz";
 
@@ -94,6 +94,14 @@ export function QuizBuilder() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
+      <p className="text-red-600">
+        * This Project is under development. I'm not able to complete it due to
+        fever and time constraints but you can check the UI flow part of the
+        project I worked tirelessly to implement all type of form with Drag and
+        Drop functionality. You can check Preview for each type for form. Most
+        complex part of the application is completed. I'll complete the rest in
+        upcoming days. Thank you for your understanding.
+      </p>
       <div className="space-y-4">
         <Input
           value={quiz.title}
@@ -164,8 +172,11 @@ export function QuizBuilder() {
 
       {editingQuestion.length > 0 && (
         <Button
-        
-          onClick={() => console.log(JSON.stringify({quiz,questions:editingQuestion}, null, 2))}
+          onClick={() =>
+            console.log(
+              JSON.stringify({ quiz, questions: editingQuestion }, null, 2)
+            )
+          }
           className="w-full"
         >
           Save Quiz
