@@ -54,7 +54,7 @@ export function ClozeEditor({ content, onChange }: ClozeEditorProps) {
       </div>
       <EditorContent 
         editor={editor} 
-        className="prose prose-sm max-w-none p-4 focus:outline-none"
+        className="prose prose-sm max-w-none p-4 border-none focus:outline-none"
       />
     </div>
   )

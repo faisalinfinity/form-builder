@@ -1,4 +1,5 @@
 import ClozeAnswerPage from "./pages/cloze-answer"
+import QuizPage from "./pages/quiz"
 
 
 function App() {
@@ -6,7 +7,8 @@ function App() {
 
   return (
     <>
-     <ClozeAnswerPage/>
+     {/* <ClozeAnswerPage/> */}
+     <QuizPage/>
     </>
   )
 }

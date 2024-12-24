@@ -1,28 +1,32 @@
-
-import { useDroppable } from '@dnd-kit/core'
-import { cn } from '@/lib/utils'
-import { DraggableItem } from './draggable-item'
-import type { Category, Item } from '@/types/quiz'
+import { useDroppable } from "@dnd-kit/core";
+import { cn } from "@/lib/utils";
+import { DraggableItem } from "./draggable-item";
+import type { Category, Item } from "@/types/quiz";
 
 interface CategoryDropZoneProps {
-  category: Category
-  items: Item[]
+  category: Category;
+  index: number;
+  items: Item[];
 }
 
-export function CategoryDropZone({ category, items }: CategoryDropZoneProps) {
+export function CategoryDropZone({
+  category,
+  items,
+  index,
+}: CategoryDropZoneProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: category.id,
-  })
+  });
 
-  const categoryItems = items.filter(item => item.categoryId === category.id)
+  const categoryItems = items.filter((item) => item.categoryId === category.id);
 
   return (
     <div
       ref={setNodeRef}
       className={cn(
         "p-4 rounded-lg min-h-[200px] transition-colors",
-        category.color === 'pink' && "bg-pink-100",
-        category.color === 'yellow' && "bg-yellow-100",
+        index % 2 == 0 && "bg-pink-100",
+        index % 2 !== 0 && "bg-yellow-100",
         isOver && "ring-2 ring-primary"
       )}
     >
@@ -33,6 +37,5 @@ export function CategoryDropZone({ category, items }: CategoryDropZoneProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }
-

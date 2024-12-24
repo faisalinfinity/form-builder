@@ -78,7 +78,7 @@ export function ClozeQuestion({ question }: ClozeQuestionProps) {
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-semibold">{question.title}</h2>
         <div className="flex items-center gap-4">
-          <button className="p-2 rounded-full hover:bg-gray-100">
+          {/* <button className="p-2 rounded-full hover:bg-gray-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -93,25 +93,11 @@ export function ClozeQuestion({ question }: ClozeQuestionProps) {
               <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
               <path d="M21 3v5h-5" />
             </svg>
-          </button>
+          </button> */}
           <div className="px-3 py-1 rounded-full border font-medium">
             {question.points} Points
           </div>
-          <button className="p-2 rounded-full hover:bg-gray-100">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" />
-            </svg>
-          </button>
+        
         </div>
       </div>
 

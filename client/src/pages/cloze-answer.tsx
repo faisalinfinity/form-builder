@@ -21,10 +21,10 @@ const sampleQuestion: ClozeQuestionType = {
   points: 10,
 }
 
-export default function ClozeAnswerPage() {
+export default function ClozeAnswerPage({question}: {question: ClozeQuestionType}) {
   return (
-    <main className="min-h-screen bg-gray-50">
-      <ClozeQuestion question={sampleQuestion} />
+    <main className="">
+      <ClozeQuestion question={question} />
     </main>
   )
 }

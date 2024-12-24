@@ -67,10 +67,13 @@ export function AnswerOption({
         </svg>
       </div>
       <Checkbox
+      title="Check if it is the correct answer"
+      disabled
         checked={answer.isCorrect}
         onCheckedChange={(checked) => 
           onCorrectChange(answer.id, checked === true)
         }
+        
       />
       <Input
         value={answer.text}

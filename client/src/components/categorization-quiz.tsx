@@ -5,9 +5,9 @@ import { DraggableItem } from './draggable-item'
 import { CategoryDropZone } from './category-drop-zone'
 import { Button } from '@/components/ui/button'
 import { RotateCcw } from 'lucide-react'
-import type { QuizData } from '@/types/quiz'
+import type { CategorizeQuiz} from '@/types/quiz'
 
-const initialQuizData: QuizData = {
+const initialQuizData: CategorizeQuiz = {
   title: "Categorize the following",
   categories: [
     { id: 'country', name: 'Country', color: 'pink' },
@@ -23,9 +23,9 @@ const initialQuizData: QuizData = {
   points: 10
 }
 
-export function CategorizationQuiz() {
-  const [quizData, setQuizData] = useState<QuizData>(initialQuizData)
-  const uncategorizedItems = quizData.items.filter(item => !item.categoryId)
+export function CategorizationQuiz({categorizationQuizData}: {categorizationQuizData: CategorizeQuiz}) {
+  const [quizData, setQuizData] = useState<CategorizeQuiz>(categorizationQuizData||initialQuizData)
+  const uncategorizedItems = quizData.items!.filter(item => !item.categoryId)
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
@@ -33,7 +33,7 @@ export function CategorizationQuiz() {
     if (over && active.id !== over.id) {
       setQuizData(prev => ({
         ...prev,
-        items: prev.items.map(item =>
+        items: prev.items!.map(item =>
           item.id === active.id ? { ...item, categoryId: over.id as string } : item
         )
       }))
@@ -43,9 +43,11 @@ export function CategorizationQuiz() {
   const handleReset = () => {
     setQuizData(prev => ({
       ...prev,
-      items: prev.items.map(item => ({ ...item, categoryId: undefined }))
+      items: prev.items!.map(item => ({ ...item, categoryId: undefined }))
     }))
   }
+
+  console.log(quizData)
 
   return (
     <DndContext
@@ -56,14 +58,14 @@ export function CategorizationQuiz() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">{quizData.title}</h2>
           <div className="flex items-center gap-4">
-            <Button
+            {/* <Button
               variant="outline"
               size="icon"
               onClick={handleReset}
               className="h-8 w-8"
             >
               <RotateCcw className="h-4 w-4" />
-            </Button>
+            </Button> */}
             <div className="bg-white px-3 py-1 rounded-full text-sm">
               {quizData.points} Points
             </div>
@@ -77,11 +79,12 @@ export function CategorizationQuiz() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {quizData.categories.map((category) => (
+          {quizData.categories!.map((category,i) => (
             <CategoryDropZone
+            index={i}
               key={category.id}
               category={category}
-              items={quizData.items}
+              items={quizData.items!}
             />
           ))}
         </div>
