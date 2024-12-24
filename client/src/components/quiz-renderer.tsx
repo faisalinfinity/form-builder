@@ -34,7 +34,7 @@ export function QuizRenderer({ quiz }: QuizRendererProps) {
   const calculateScore = () => {
     let totalScore = 0
     quiz.questions.forEach((question) => {
-      const answer = answers[question.id]
+      const answer = answers[question.id!]
       if (answer) {
         switch (question.type) {
           case 'cloze':
@@ -54,20 +54,20 @@ export function QuizRenderer({ quiz }: QuizRendererProps) {
 
   const calculateClozeScore = (question: Question, answer: any) => {
     if (question.type !== 'cloze') return 0
-    const correctAnswers = question.gaps.filter((gap, index) => gap.answer === answer[index])
-    return (correctAnswers.length / question.gaps.length) * question.points
+    const correctAnswers = question.gaps!.filter((gap, index) => gap.answer === answer[index])
+    return (correctAnswers.length / question.gaps!.length) * question.points!
   }
 
   const calculateComprehensionScore = (question: Question, answer: any) => {
     if (question.type !== 'comprehension') return 0
-    const correctAnswers = question.mcqs.filter((mcq) => mcq.correctOptionId === answer[mcq.id])
-    return (correctAnswers.length / question.mcqs.length) * question.points
+    const correctAnswers = question.mcqs!.filter((mcq) => mcq.correctOptionId === answer[mcq.id])
+    return (correctAnswers.length / question.mcqs!.length) * question.points!
   }
 
   const calculateCategorizeScore = (question: Question, answer: any) => {
     if (question.type !== 'categorize') return 0
-    const correctAnswers = question.items.filter((item) => item.categoryId === answer[item.id])
-    return (correctAnswers.length / question.items.length) * question.points
+    const correctAnswers = question.items!.filter((item) => item.categoryId === answer[item.id])
+    return (correctAnswers.length / question.items!.length) * question.points!
   }
 
   if (score !== null) {
@@ -79,7 +79,7 @@ export function QuizRenderer({ quiz }: QuizRendererProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Your score: {score} out of {quiz.questions.reduce((total, q) => total + q.points, 0)}</p>
+          <p>Your score: {score} out of {quiz.questions.reduce((total, q) => total + q.points!, 0)}</p>
         </CardContent>
       </Card>
     )
@@ -104,7 +104,7 @@ export function QuizRenderer({ quiz }: QuizRendererProps) {
           {currentQuestion.type === 'cloze' && (
             <ClozeQuestion
               question={currentQuestion}
-              onAnswer={(answer) => handleAnswer(currentQuestion.id, answer)}
+              // onAnswer={(answer) => handleAnswer(currentQuestion.id!, answer)}
             />
           )}
           {/* {currentQuestion.type === 'comprehension' && (
@@ -113,12 +113,12 @@ export function QuizRenderer({ quiz }: QuizRendererProps) {
               onAnswer={(answer) => handleAnswer(currentQuestion.id, answer)}
             />
           )} */}
-          {currentQuestion.type === 'categorize' && (
+          {/* {currentQuestion.type === 'categorize' && (
             <CategorizationQuiz
               question={currentQuestion}
-              onAnswer={(answer) => handleAnswer(currentQuestion.id, answer)}
+              // onAnswer={(answer) => handleAnswer(currentQuestion.id, answer)}
             />
-          )}
+          )} */}
         </CardContent>
       </Card>
 

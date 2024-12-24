@@ -39,39 +39,39 @@ export function ClozeQuestion({ question }: ClozeQuestionProps) {
     const gapId = over.id as string
 
     // If there's already an answer in this gap, make its option available again
-    const currentGap = gaps.find(g => g.id === gapId)
+    const currentGap = gaps!.find(g => g.id === gapId)
     if (currentGap?.answer) {
-      setOptions(prev => prev.map(option => 
+      setOptions(prev => prev!.map(option => 
         option.text === currentGap.answer ? { ...option, isUsed: false } : option
       ))
     }
 
     // Update the gaps with the new answer
-    setGaps(prev => prev.map(gap => 
+    setGaps(prev => prev!.map(gap => 
       gap.id === gapId ? { ...gap, answer: optionText } : gap
     ))
 
     // Mark the option as used
-    setOptions(prev => prev.map(option => 
+    setOptions(prev => prev!.map(option => 
       option.id === optionId ? { ...option, isUsed: true } : option
     ))
   }
 
   const removeAnswer = (gapId: string) => {
-    const gap = gaps.find(g => g.id === gapId)
+    const gap = gaps!.find(g => g.id === gapId)
     if (!gap?.answer) return
 
-    setGaps(prev => prev.map(g => 
+    setGaps(prev => prev!.map(g => 
       g.id === gapId ? { ...g, answer: undefined } : g
     ))
 
-    setOptions(prev => prev.map(option => 
+    setOptions(prev => prev!.map(option => 
       option.text === gap.answer ? { ...option, isUsed: false } : option
     ))
   }
 
   // Split content into text and gaps
-  const contentParts = question.content.split(/\{\{gap\}\}/g)
+  const contentParts = question.content!.split(/\{\{gap\}\}/g)
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -103,7 +103,7 @@ export function ClozeQuestion({ question }: ClozeQuestionProps) {
 
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
         <div className="flex flex-wrap gap-2 mb-8">
-          {options.map((option) => (
+          {options!.map((option) => (
             <DraggableOption
               key={option.id}
               id={option.id}
@@ -117,12 +117,12 @@ export function ClozeQuestion({ question }: ClozeQuestionProps) {
           {contentParts.map((part, index) => (
             <span key={index}>
               {part}
-              {index < gaps.length && (
+              {index < gaps!.length && (
                 <DroppableGap
-                  key={gaps[index].id}
-                  id={gaps[index].id}
-                  answer={gaps[index].answer}
-                  onRemove={() => removeAnswer(gaps[index].id)}
+                  key={gaps![index].id}
+                  id={gaps![index].id}
+                  answer={gaps![index].answer}
+                  onRemove={() => removeAnswer(gaps![index].id)}
                 />
               )}
             </span>

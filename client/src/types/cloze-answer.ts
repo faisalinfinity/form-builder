@@ -10,12 +10,12 @@ export interface ClozeGap {
   }
   
   export interface ClozeQuestion {
-    id: string
-    title: string
-    content: string
-    gaps: ClozeGap[]
-    options: ClozeOption[]
-    points: number
+    id?: string
+    title?: string
+    content?: string
+    gaps?: ClozeGap[]
+    options?: ClozeOption[]
+    points?: number
   }
   
   

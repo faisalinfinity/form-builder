@@ -1,5 +1,5 @@
 import { EyeIcon, HammerIcon } from 'lucide-react'
-import React from 'react'
+import * as React from 'react'
 import { Switch } from './switch'
 
 const PreviewToggler = ({isPreview,setIsPreview}:{isPreview:boolean,setIsPreview:React.Dispatch<React.SetStateAction<boolean>>}) => {

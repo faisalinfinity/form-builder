@@ -13,7 +13,7 @@ import {
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { cn } from "@/lib/utils"
-import type { Category } from "@/types/quiz-builder"
+import type { Category } from "@/types/quiz"
 
 interface QuizItemInputProps {
   id: string

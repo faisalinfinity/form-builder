@@ -63,9 +63,9 @@ export function QuizBuilder() {
     );
   };
 
-  const editQuestion = (question: Question) => {
-    setEditingQuestion(question);
-  };
+  // const editQuestion = (question: Question) => {
+  //   setEditingQuestion(question);
+  // };
 
   const deleteQuestion = (questionId: string) => {
     setEditingQuestion((prev) => prev.filter((q) => q.id !== questionId));

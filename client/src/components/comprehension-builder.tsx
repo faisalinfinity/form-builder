@@ -14,7 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MCQBuilder } from "./mcq-builder";
@@ -28,7 +28,7 @@ import { v4 as uuidv4 } from "uuid";
 interface ComprehensionBuilderProps {
   initialData?: ComprehensionQuestion;
   questionTitle?: string;
-  onSave: (question: ComprehensionQuestion) => void;
+  onSave?: (question: ComprehensionQuestion) => void;
 }
 
 export function ComprehensionBuilder({
@@ -46,7 +46,7 @@ export function ComprehensionBuilder({
     }
   );
   const [isPreview, setIsPreview] = useState(false);
-  const [isEditor, setIsEditor] = useState(false);
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -59,12 +59,12 @@ export function ComprehensionBuilder({
 
     if (active.id !== over.id) {
       setQuestion((prev) => {
-        const oldIndex = prev.mcqs.findIndex((mcq) => mcq.id === active.id);
-        const newIndex = prev.mcqs.findIndex((mcq) => mcq.id === over.id);
+        const oldIndex = prev.mcqs!.findIndex((mcq) => mcq.id === active.id);
+        const newIndex = prev.mcqs!.findIndex((mcq) => mcq.id === over.id);
 
         return {
           ...prev,
-          mcqs: arrayMove(prev.mcqs, oldIndex, newIndex),
+          mcqs: arrayMove(prev.mcqs!, oldIndex, newIndex),
         };
       });
     }
@@ -72,7 +72,7 @@ export function ComprehensionBuilder({
 
   const addMCQ = () => {
     const newMCQ: MCQ = {
-      id: `mcq-${question.mcqs.length + 1}`,
+      id: `mcq-${question.mcqs!.length + 1}`,
       question: "",
       options: [
         { id: "option-1", text: "" },
@@ -82,14 +82,14 @@ export function ComprehensionBuilder({
     };
     setQuestion((prev) => ({
       ...prev,
-      mcqs: [...prev.mcqs, newMCQ],
+      mcqs: [...prev.mcqs!, newMCQ],
     }));
   };
 
   const updateMCQ = (updatedMCQ: MCQ) => {
     setQuestion((prev) => ({
       ...prev,
-      mcqs: prev.mcqs.map((mcq) =>
+      mcqs: prev.mcqs!.map((mcq) =>
         mcq.id === updatedMCQ.id ? updatedMCQ : mcq
       ),
     }));
@@ -98,7 +98,7 @@ export function ComprehensionBuilder({
   const deleteMCQ = (mcqId: string) => {
     setQuestion((prev) => ({
       ...prev,
-      mcqs: prev.mcqs.filter((mcq) => mcq.id !== mcqId),
+      mcqs: prev.mcqs!.filter((mcq) => mcq.id !== mcqId),
     }));
   };
 
@@ -150,10 +150,10 @@ export function ComprehensionBuilder({
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={question.mcqs.map((mcq) => mcq.id)}
+            items={question.mcqs!.map((mcq) => mcq.id)}
             strategy={verticalListSortingStrategy}
           >
-            {question.mcqs.map((mcq) => (
+            {question.mcqs!.map((mcq) => (
               <SortableMCQ key={mcq.id} id={mcq.id}>
                 <MCQBuilder
                   mcq={mcq}
@@ -166,7 +166,7 @@ export function ComprehensionBuilder({
         </DndContext>
       </div>
 
-      <Button onClick={() => onSave(question)} className="w-full">
+      <Button onClick={() => onSave!(question)} className="w-full">
         Save Comprehension Question
       </Button>
     </div>

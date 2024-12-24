@@ -22,7 +22,7 @@ interface ComprehensionQuestionRendererProps {
 
 export function ComprehensionQuestionRenderer({
   question,
-  onAnswer,
+  // onAnswer,
   isEditor,
 }: ComprehensionQuestionRendererProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -32,10 +32,10 @@ export function ComprehensionQuestionRenderer({
   };
 
   const handleSubmit = () => {
-    onAnswer(answers);
+    // onAnswer(answers);
   };
 
-  const allQuestionsAnswered = question.mcqs.every((mcq) => answers[mcq.id]);
+  const allQuestionsAnswered = question.mcqs!.every((mcq) => answers[mcq.id]);
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -49,7 +49,7 @@ export function ComprehensionQuestionRenderer({
           </div>
         </ScrollArea>
         <div className="space-y-8">
-          {question.mcqs.map((mcq,i) => (
+          {question.mcqs!.map((mcq,i) => (
             <div key={mcq.id} className="space-y-4">
               <h3 className="font-medium text-lg">{i+1}. {mcq.question}</h3>
               <RadioGroup
